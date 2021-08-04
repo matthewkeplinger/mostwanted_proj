@@ -98,6 +98,29 @@ function searchByName(people){
   return foundPerson;
 }
 
+
+//Search by user entered name
+function userSearchByName(people, person){
+
+  let userPerson = person.split(" ");
+  let firstName = userPerson[0];
+  let lastName = userPerson[1];
+
+  let foundPerson = people.filter(function(potentialMatch){
+    if(potentialMatch.firstName === firstName && potentialMatch.lastName === lastName){
+      
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  // TODO: find the person single person object using the name they entered.
+  return foundPerson;
+}
+
+
+
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people){
   let eyeColor = promptFor("What is the person's eye color?", customValidation);
@@ -111,16 +134,18 @@ function searchByEyeColor(people){
     }
   })
   // TODO: find the person single person object using the name they entered.
-  let peopleArray = [];
+    let peopleArray = [];
     for(let i = 0; i < foundPerson.length; i ++){
       peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
     }
-     let userSelectedName = prompt("Please select one of the following names: \n" + peopleArray);
+     //let userSelectedName = prompt("Please select one of the following names: \n" + peopleArray);
     
+     choosePerson(foundPerson);
+
 
   return foundPerson;
 }
-
+ 
 
 //Search by Gender
 function searchByGender(people){
@@ -197,6 +222,15 @@ function displayPerson(person){
   personInfo += "Last Name: " + person.lastName + "\n";
   // TODO: finish getting the rest of the information to display.
   alert(personInfo);
+}
+
+function choosePerson(people){
+  let listOfPeople = people.map(function(person){
+    return person.firstName + " " + person.lastName;
+  }).join("\n");
+  let userSelectedPerson = prompt("Please select a name from the list: \n" + listOfPeople);
+
+  userSearchByName(people, userSelectedPerson);
 }
 
 //#endregion
