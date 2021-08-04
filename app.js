@@ -15,7 +15,19 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-      searchResults = searchByEyeColor(people);
+      let userPickedTrait = promptFor("Do you want to search by eye color, gender or occupation?", customValidation);
+        switch(userPickedTrait){
+          case 'eye color':
+            searchResults = searchByEyeColor(people);
+            break;
+          case 'gender':
+            searchByGender(people);
+            break;
+          case 'occupation':
+            searchByOccupation(people);
+            break;  
+        }
+      
       break;
       default:
     app(people); // restart app
@@ -108,6 +120,57 @@ function searchByEyeColor(people){
 
   return foundPerson;
 }
+
+
+//Search by Gender
+function searchByGender(people){
+  let gender = promptFor("What is the person's gender?", customValidation);
+  
+  let foundPerson = people.filter(function(potentialMatch){
+    if(potentialMatch.gender === gender){     
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  // TODO: find the person single person object using the name they entered.
+  let peopleArray = [];
+    for(let i = 0; i < foundPerson.length; i ++){
+      peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
+    }
+     let userSelectedName = prompt("Please select one of the following names: \n" + peopleArray);
+    
+
+  return foundPerson;
+}
+
+
+//Search by Occupation
+function searchByOccupation(people){
+  let occupation = promptFor("What is the person's eye color?", customValidation);
+  
+  let foundPerson = people.filter(function(potentialMatch){
+    if(potentialMatch.occupation === occupation){     
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  // TODO: find the person single person object using the name they entered.
+  let peopleArray = [];
+    for(let i = 0; i < foundPerson.length; i ++){
+      peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
+    }
+     let userSelectedName = prompt("Please select one of the following names: \n" + peopleArray);
+    
+
+  return foundPerson;
+}
+
+
+
 
 //TODO: add other trait filter functions here.
 
