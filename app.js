@@ -29,6 +29,7 @@ function app(people){
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
 
+  //displayPeople(people); //for test
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
   if(!person){
@@ -98,6 +99,13 @@ function searchByEyeColor(people){
     }
   })
   // TODO: find the person single person object using the name they entered.
+  let peopleArray = [];
+    for(let i = 0; i < foundPerson.length; i ++){
+      peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
+    }
+     let userSelectedName = prompt("Please select one of the following names: \n" + peopleArray);
+    
+
   return foundPerson;
 }
 
