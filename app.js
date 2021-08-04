@@ -1,5 +1,6 @@
 "use strict"
 
+//Test Comment
 
 //Menu functions.
 //Used for the overall flow of the application.
