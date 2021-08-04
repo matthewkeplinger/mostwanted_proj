@@ -30,10 +30,12 @@ function mainMenu(person, people){
 
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
+  alert(person.firstName); //for testing
   if(!person){
     alert("Could not find that individual.");
     return app(people); // restart
   }
+
 
   let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
 
@@ -55,6 +57,7 @@ function mainMenu(person, people){
     default:
     return mainMenu(person, people); // ask again
   }
+
 }
 
 //#endregion
@@ -66,11 +69,12 @@ function mainMenu(person, people){
 
 //nearly finished function used to search through an array of people to find matching first and last name and return a SINGLE person object.
 function searchByName(people){
-  let firstName = promptFor("What is the person's first name?", autoValid);
-  let lastName = promptFor("What is the person's last name?", autoValid);
+  let firstName = promptFor("What is the person's first name?", customValidation);
+  let lastName = promptFor("What is the person's last name?", customValidation);
 
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.firstName === firstName && potentialMatch.lastName === lastName){
+      
       return true;
     }
     else{
@@ -155,6 +159,8 @@ function autoValid(input){
 //Unfinished validation function you can use for any of your custom validation callbacks.
 //can be used for things like eye color validation for example.
 function customValidation(input){
+  let testCase = /^[A-Za-z]/g;
+  return testCase.test(input);
   
 }
 
