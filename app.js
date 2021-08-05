@@ -62,7 +62,7 @@ function mainMenu(person, people){
     findMyFamily(people,person[0]);
     break;
     case "descendants":
-    findMyDescendants(people, person[0]);
+    console.log(findMyDescendantsRecursively(people, person[0]));
     break;
     case "restart":
     app(people); // restart
@@ -95,7 +95,7 @@ function searchByName(people){
       return false;
     }
   })
-  // TODO: find the person single person object using the name they entered.
+
   return foundPerson;
 }
 
@@ -116,7 +116,7 @@ function userSearchByName(people, person){
       return false;
     }
   })
-  // TODO: find the person single person object using the name they entered.
+  
   return foundPerson;
 }
 
@@ -134,12 +134,12 @@ function searchByEyeColor(people){
       return false;
     }
   })
-  // TODO: find the person single person object using the name they entered.
+ 
     let peopleArray = [];
     for(let i = 0; i < foundPerson.length; i ++){
       peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
     }
-     //let userSelectedName = prompt("Please select one of the following names: \n" + peopleArray);
+     
     
      choosePerson(foundPerson);
 
@@ -160,12 +160,12 @@ function searchByGender(people){
       return false;
     }
   })
-  // TODO: find the person single person object using the name they entered.
+  
   let peopleArray = [];
   for(let i = 0; i < foundPerson.length; i ++){
     peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
   }
-   //let userSelectedName = prompt("Please select one of the following names: \n" + peopleArray);
+  
   
    choosePerson(foundPerson);
 
@@ -185,12 +185,12 @@ function searchByOccupation(people){
       return false;
     }
   })
-  // TODO: find the person single person object using the name they entered.
+  
   let peopleArray = [];
   for(let i = 0; i < foundPerson.length; i ++){
     peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
   }
-   //let userSelectedName = prompt("Please select one of the following names: \n" + peopleArray);
+
   
    choosePerson(foundPerson);
 
@@ -207,6 +207,7 @@ function findMyFamily(people,person){
   let parentsNames = [];
   let spouseName = "";
 
+  //Finds Parent Names
   for(let i =0; i < people.length; i ++){
     for(let j = 0; j < person.parents.length; j++){
       if(people[i].id === person.parents[j]){
@@ -215,41 +216,32 @@ function findMyFamily(people,person){
     }
   }
 
+  //Finds Spouse Name
   for(let i = 0; i < people.length; i++){
     if(people[i].id === person.currentSpouse){
       spouseName = people[i].firstName + " " + people[i].lastName;
     }
   }
 
-  if(myParents != null || mySpouse != null){
-    
-    alert(`Parent:${parentsNames} \nSpouse: ${spouseName}`);
-   
+  if(myParents != null || mySpouse != null){    
+    alert(`Parent:${parentsNames} \nSpouse: ${spouseName}`);   
   }
 }
 
 
 //Find Descendants of selected person
-function findMyDescendants(people, person){
-  let selectedPersonID = person.id;
-  let parentsID = people.parents;
-  let descendantID = "";
-  let descendantNames = [];
+function findMyDescendantsRecursively(people, person){
+  let foundDescendants = [];
 
-  // for(let i = 0; i < people.length; i++){
-  //   for( let j = 0; j < person.parents.length; j++){
-  //     if(people[i].parents === person[j].parents){
-  //       descendantNames.push(" " + people[i].firstName + " " + people[i].lastName);
-  //     }
-  //   }
-  // }
-
-  descendantNames = people.parents.filter(function());
-
- 
-
-  alert(`Descendants:${descendantNames}`);
-
+  for(let i = 0; i < people.length; i++){
+    if(people[i].parents.includes(person.id)){
+      foundDescendants.push(people[i]);
+    }
+  }
+  for(let i = 0; i < foundDescendants.length; i++){
+    foundDescendants = foundDescendants.concat(findMyDescendantsRecursively(people, foundDescendants[i]));
+  }
+  return foundDescendants;
 }
 
 
