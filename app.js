@@ -21,10 +21,10 @@ function app(people){
             searchResults = searchByEyeColor(people);
             break;
           case 'gender':
-            searchByGender(people);
+            searchResults = searchByGender(people);
             break;
           case 'occupation':
-            searchByOccupation(people);
+            searchResults = searchByOccupation(people);
             break;  
         }
       
@@ -35,7 +35,7 @@ function app(people){
   }
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
-  mainMenu(searchResults, people);
+  //mainMenu(searchResults, people);
 }
 
 // Menu function to call once you find who you are looking for
@@ -48,8 +48,6 @@ function mainMenu(person, people){
     alert("Could not find that individual.");
     return app(people); // restart
   }
-
-
   let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
 
   switch(displayOption){
@@ -73,6 +71,28 @@ function mainMenu(person, people){
 
 }
 
+function alternateMenu(person){
+  let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
+
+  switch(displayOption){
+    case "info":
+    // TODO: get person's info
+    break;
+    case "family":
+    // TODO: get person's family
+    break;
+    case "descendants":
+    // TODO: get person's descendants
+    break;
+    case "restart":
+    app(people); // restart
+    break;
+    case "quit":
+    return; // stop execution
+    default:
+    return mainMenu(person, people); // ask again
+  }
+}
 //#endregion
 
 //Filter functions.
@@ -123,7 +143,7 @@ function userSearchByName(people, person){
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people){
-  let eyeColor = promptFor("What is the person's eye color?", customValidation);
+  let eyeColor = promptFor("What is the person's eye color?", validateEyeColor);
   
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.eyeColor === eyeColor){     
@@ -149,7 +169,7 @@ function searchByEyeColor(people){
 
 //Search by Gender
 function searchByGender(people){
-  let gender = promptFor("What is the person's gender?", customValidation);
+  let gender = promptFor("What is the person's gender?", validateGender);
   
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.gender === gender){     
@@ -161,19 +181,20 @@ function searchByGender(people){
   })
   // TODO: find the person single person object using the name they entered.
   let peopleArray = [];
-    for(let i = 0; i < foundPerson.length; i ++){
-      peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
-    }
-     let userSelectedName = prompt("Please select one of the following names: \n" + peopleArray);
-    
+  for(let i = 0; i < foundPerson.length; i ++){
+    peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
+  }
+   //let userSelectedName = prompt("Please select one of the following names: \n" + peopleArray);
+  
+   choosePerson(foundPerson);
 
-  return foundPerson;
+
+return foundPerson;
 }
-
 
 //Search by Occupation
 function searchByOccupation(people){
-  let occupation = promptFor("What is the person's eye color?", customValidation);
+  let occupation = promptFor("What is the person's occupation?", validateText);
   
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.occupation === occupation){     
@@ -185,13 +206,15 @@ function searchByOccupation(people){
   })
   // TODO: find the person single person object using the name they entered.
   let peopleArray = [];
-    for(let i = 0; i < foundPerson.length; i ++){
-      peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
-    }
-     let userSelectedName = prompt("Please select one of the following names: \n" + peopleArray);
-    
+  for(let i = 0; i < foundPerson.length; i ++){
+    peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
+  }
+   //let userSelectedName = prompt("Please select one of the following names: \n" + peopleArray);
+  
+   choosePerson(foundPerson);
 
-  return foundPerson;
+
+return foundPerson;
 }
 
 
@@ -230,7 +253,8 @@ function choosePerson(people){
   }).join("\n");
   let userSelectedPerson = prompt("Please select a name from the list: \n" + listOfPeople);
 
-  userSearchByName(people, userSelectedPerson);
+  alternateMenu(userSelectedPerson);
+  //userSearchByName(people, userSelectedPerson);
 }
 
 //#endregion
@@ -272,12 +296,29 @@ function autoValid(input){
   return true; // default validation only
 }
 
-//Unfinished validation function you can use for any of your custom validation callbacks.
-//can be used for things like eye color validation for example.
+//Custom Validations for individual trait searches
 function customValidation(input){
   let testCase = /^[A-Za-z]/g;
   return testCase.test(input);
-  
 }
-
+function validateText(input){
+  let testCase = /^[A-Za-z]+$/;
+  return testCase.test(input);
+}
+function validateInteger(input){
+  let testCase = /^[0-9]+$/;
+  return testCase.test(input);
+}
+function validateGender(input){
+  let testCase = /^[male|female]+$/
+  return testCase.test(input);
+}
+function validateEyeColor(input){
+  let testCase = /^[blue|brown|black|hazel|green]/g;
+  return testCase.test(input);
+}
+function validateYear(input){
+  let testCase = /^(19[2-9]|200\d|2010)$/ //allow for year entries from 1920-2010
+  return testCase.test(input);
+}
 //#endregion
