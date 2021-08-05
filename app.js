@@ -59,7 +59,7 @@ function mainMenu(person, people){
     displayPerson(person[0]);
     break;
     case "family":
-    // TODO: get person's family
+    findMyFamily(people,person[0]);
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -73,29 +73,6 @@ function mainMenu(person, people){
     return mainMenu(person, people); // ask again
   }
 
-}
-
-function alternateMenu(person, people){
-  let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
-
-  switch(displayOption){
-    case "info":
-    displayPerson(person);
-    break;
-    case "family":
-    // TODO: get person's family
-    break;
-    case "descendants":
-    // TODO: get person's descendants
-    break;
-    case "restart":
-    app(people); // restart
-    break;
-    case "quit":
-    return; // stop execution
-    default:
-    return mainMenu(person, people); // ask again
-  }
 }
 //#endregion
 
@@ -220,8 +197,28 @@ function searchByOccupation(people){
 
 return foundPerson;
 }
+//Find Family of selected person
+function findMyFamily(people,person){
+  let myParents = person.parents;
+  let mySpouse = person.currentSpouse.find(person.firstName);
+  let familyNames = people.map(function(id){
+    return people.firstName + people.lastName;
+  }
+  );
+
+  if(myParents != null || mySpouse != null){
+    
+    alert(`${myParents}, ${mySpouse}`);
+    alert(`${familyNames}`);
+  }
+}
+//Find Descendants of selected person
+function findMyDescendants(person){
+
+}
 
 
+//Calculate Age based on current date
  function calculateAgeInYrs(person){
    let thisAge = Date.parse(person.dob);
    let diff_ms = Date.now() - thisAge;
