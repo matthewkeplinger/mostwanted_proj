@@ -350,11 +350,11 @@ function validateInteger(input){
   return testCase.test(input);
 }
 function validateGender(input){
-  let testCase = /^[male|female]+$/
+  let testCase = /^male$|^female$/g;
   return testCase.test(input);
 }
 function validateEyeColor(input){
-  let testCase = /^[blue|brown|black|hazel|green]/g;
+  let testCase = /^blue$|^brown$|^black$|^hazel$|^green$]/g;
   return testCase.test(input);
 }
 function validateYear(input){
