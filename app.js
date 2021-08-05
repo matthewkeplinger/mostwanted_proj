@@ -12,6 +12,7 @@ function app(people){
   switch(searchType){
     case 'yes':
       searchResults = searchByName(people);
+      mainMenu(searchResults,people);
       break;
     case 'no':
       // TODO: search by traits
@@ -19,6 +20,7 @@ function app(people){
         switch(userPickedTrait){
           case 'eye color':
             searchResults = searchByEyeColor(people);
+            //choosePerson(searchResults);
             break;
           case 'gender':
             searchResults = searchByGender(people);
@@ -35,7 +37,7 @@ function app(people){
       
   }
 
-  mainMenu(searchResults,people);
+  //mainMenu(searchResults,people);
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
  
 }
@@ -73,12 +75,12 @@ function mainMenu(person, people){
 
 }
 
-function alternateMenu(person){
+function alternateMenu(person, people){
   let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
 
   switch(displayOption){
     case "info":
-    // TODO: get person's info
+    displayPerson(person);
     break;
     case "family":
     // TODO: get person's family
@@ -267,7 +269,7 @@ function choosePerson(people){
   }).join("\n");
   let userSelectedPerson = prompt("Please select a name from the list: \n" + listOfPeople);
 
-  alternateMenu(userSelectedPerson);
+  mainMenu(userSearchByName(people, userSelectedPerson), people);
   //userSearchByName(people, userSelectedPerson);
 }
 
