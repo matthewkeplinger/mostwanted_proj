@@ -32,10 +32,12 @@ function app(people){
       default:
     app(people); // restart app
       break;
+      
   }
-  
+
+  mainMenu(searchResults,people);
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
-  //mainMenu(searchResults, people);
+ 
 }
 
 // Menu function to call once you find who you are looking for
@@ -52,7 +54,7 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    // TODO: get person's info
+    displayPerson(person[0]);
     break;
     case "family":
     // TODO: get person's family
@@ -218,6 +220,14 @@ return foundPerson;
 }
 
 
+ function calculateAgeInYrs(person){
+   let thisAge = Date.parse(person.dob);
+   let diff_ms = Date.now() - thisAge;
+   let age_dt = new Date(diff_ms);
+
+   return Math.abs(age_dt.getUTCFullYear() - 1970);
+ }
+
 
 
 //TODO: add other trait filter functions here.
@@ -243,7 +253,11 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-  // TODO: finish getting the rest of the information to display.
+  personInfo += "Height: " + person.height + "inches" + "\n";
+  personInfo += "Weight: " + person.weight + " lbs" + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
+  personInfo += "Age: " + calculateAgeInYrs(person) + " years old";
   alert(personInfo);
 }
 
