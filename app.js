@@ -62,7 +62,7 @@ function mainMenu(person, people){
     findMyFamily(people,person[0]);
     break;
     case "descendants":
-    // TODO: get person's descendants
+    findMyDescendants(people, person[0]);
     break;
     case "restart":
     app(people); // restart
@@ -208,7 +208,6 @@ function findMyFamily(people,person){
   let spouseName = "";
 
   for(let i =0; i < people.length; i ++){
-
     for(let j = 0; j < person.parents.length; j++){
       if(people[i].id === person.parents[j]){
         parentsNames.push(" " + people[i].firstName + " " + people[i].lastName);
@@ -228,8 +227,28 @@ function findMyFamily(people,person){
    
   }
 }
+
+
 //Find Descendants of selected person
-function findMyDescendants(person){
+function findMyDescendants(people, person){
+  let selectedPersonID = person.id;
+  let parentsID = people.parents;
+  let descendantID = "";
+  let descendantNames = [];
+
+  // for(let i = 0; i < people.length; i++){
+  //   for( let j = 0; j < person.parents.length; j++){
+  //     if(people[i].parents === person[j].parents){
+  //       descendantNames.push(" " + people[i].firstName + " " + people[i].lastName);
+  //     }
+  //   }
+  // }
+
+  descendantNames = people.parents.filter(function());
+
+ 
+
+  alert(`Descendants:${descendantNames}`);
 
 }
 
