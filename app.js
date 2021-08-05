@@ -197,19 +197,35 @@ function searchByOccupation(people){
 
 return foundPerson;
 }
+
+
 //Find Family of selected person
 function findMyFamily(people,person){
+
   let myParents = person.parents;
-  let mySpouse = person.currentSpouse.find(person.firstName);
-  let familyNames = people.map(function(id){
-    return people.firstName + people.lastName;
+  let mySpouse =  person.currentSpouse;
+  let parentsNames = [];
+  let spouseName = "";
+
+  for(let i =0; i < people.length; i ++){
+
+    for(let j = 0; j < person.parents.length; j++){
+      if(people[i].id === person.parents[j]){
+        parentsNames.push(" " + people[i].firstName + " " + people[i].lastName);
+      }
+    }
   }
-  );
+
+  for(let i = 0; i < people.length; i++){
+    if(people[i].id === person.currentSpouse){
+      spouseName = people[i].firstName + " " + people[i].lastName;
+    }
+  }
 
   if(myParents != null || mySpouse != null){
     
-    alert(`${myParents}, ${mySpouse}`);
-    alert(`${familyNames}`);
+    alert(`Parent:${parentsNames} \nSpouse: ${spouseName}`);
+   
   }
 }
 //Find Descendants of selected person
