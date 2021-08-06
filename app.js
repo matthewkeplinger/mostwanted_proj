@@ -16,18 +16,25 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-      let userPickedTrait = promptFor("Do you want to search by eye color, gender or occupation?", customValidation);
+      let userPickedTrait = promptFor("Do you want to search by eye color, gender, occupation, or multiple?", customValidation);
         switch(userPickedTrait){
           case 'eye color':
             searchResults = searchByEyeColor(people);
-            //choosePerson(searchResults);
+            choosePerson(searchResults);
             break;
           case 'gender':
             searchResults = searchByGender(people);
+            choosePerson(searchResults);
             break;
           case 'occupation':
             searchResults = searchByOccupation(people);
+            choosePerson(searchResults);
             break;  
+          case 'multiple':
+            searchResults = multipleCriteriaSearch(people);
+            choosePerson(searchResults);
+            break;
+          
         }
       
       break;
@@ -141,7 +148,7 @@ function searchByEyeColor(people){
     }
      
     
-     choosePerson(foundPerson);
+    // choosePerson(foundPerson);
 
 
   return foundPerson;
@@ -167,7 +174,7 @@ function searchByGender(people){
   }
   
   
-   choosePerson(foundPerson);
+  // choosePerson(foundPerson);
 
 
 return foundPerson;
@@ -192,7 +199,7 @@ function searchByOccupation(people){
   }
 
   
-   choosePerson(foundPerson);
+   //choosePerson(foundPerson);
 
 
 return foundPerson;
@@ -256,6 +263,20 @@ function findMyDescendantsRecursively(people, person){
 
 
 
+//Multiple criteria search
+function multipleCriteriaSearch(people){
+
+
+  let gender = searchByGender(people);
+  let eyeColor = searchByEyeColor(gender);
+  let occupation = searchByOccupation(eyeColor);
+  
+  return occupation;
+
+
+}
+
+
 //TODO: add other trait filter functions here.
 
 
@@ -294,7 +315,7 @@ function choosePerson(people){
   let userSelectedPerson = prompt("Please select a name from the list: \n" + listOfPeople);
 
   mainMenu(userSearchByName(people, userSelectedPerson), people);
-  //userSearchByName(people, userSelectedPerson);
+
 }
 
 //#endregion
