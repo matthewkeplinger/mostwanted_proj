@@ -147,10 +147,6 @@ function searchByEyeColor(people){
       peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
     }
      
-    
-    // choosePerson(foundPerson);
-
-
   return foundPerson;
 }
  
@@ -173,12 +169,9 @@ function searchByGender(people){
     peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
   }
   
-  
-  // choosePerson(foundPerson);
-
-
 return foundPerson;
 }
+
 
 //Search by Occupation
 function searchByOccupation(people){
@@ -198,12 +191,52 @@ function searchByOccupation(people){
     peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
   }
 
-  
-   //choosePerson(foundPerson);
+return foundPerson;
+}
 
+
+//Search by Age
+function searchByAge(people){
+  let age = promptFor("What is the person's age?", validateInteger);
+  
+  let foundPerson = people.filter(function(potentialMatch){
+    if(calculateAgeInYrs(potentialMatch) === parseInt(age)){     
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  
+  let peopleArray = [];
+  for(let i = 0; i < foundPerson.length; i ++){
+    peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
+  }
 
 return foundPerson;
 }
+
+function searchByHeight(people){
+  let minHeight = promptFor("What is the minimum height range?", validateInteger);
+  let maxHeight = promptFor("What is the maximum height range?", validateInteger);
+
+  let foundPerson = people.filter(function(potentialMatch){
+    if(potentialMatch.height >= parseInt(minHeight) && potentialMatch.height <= parseInt(maxHeight)){     
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  
+  let peopleArray = [];
+  for(let i = 0; i < foundPerson.length; i ++){
+    peopleArray.push(foundPerson[i].firstName + " " + foundPerson[i].lastName + "\n");
+  }
+
+  return foundPerson;
+}
+
 
 
 //Find Family of selected person
@@ -270,8 +303,10 @@ function multipleCriteriaSearch(people){
   let gender = searchByGender(people);
   let eyeColor = searchByEyeColor(gender);
   let occupation = searchByOccupation(eyeColor);
+  let age = searchByAge(occupation);
+  let height = searchByHeight(age);
   
-  return occupation;
+  return height;
 
 
 }
@@ -300,7 +335,7 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Height: " + person.height + "inches" + "\n";
+  personInfo += "Height: " + person.height + " inches" + "\n";
   personInfo += "Weight: " + person.weight + " lbs" + "\n";
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
