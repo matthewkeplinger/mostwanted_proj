@@ -70,7 +70,7 @@ function mainMenu(person, people) {
       findMyFamily(people, person[0]);
       break;
     case "descendants":
-      console.log(findMyDescendantsRecursively(people, person[0]));
+      displayPeople(findMyDescendantsRecursively(people, person[0]));
       break;
     case "restart":
       app(people); // restart
